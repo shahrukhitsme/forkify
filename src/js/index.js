@@ -35,7 +35,7 @@ const controlSearch = async () => {
 
         // 5) Render results on UI
         clearLoader();
-        
+
         console.log("Results:");
         console.log(state.search.result);
         searchView.renderResults(state.search.result);
@@ -45,4 +45,14 @@ const controlSearch = async () => {
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault(); //Will prevent reloading of window
     controlSearch();
+});
+
+elements.searchResPages.addEventListener('click', e=>{
+    const btn = e.target.closest('.btn-inline');
+    if(btn)
+    {
+        const goToPage = parseInt(btn.dataset.goto,10);
+        searchView.clearResults();
+        searchView.renderResults(state.search.result, goToPage);
+    }
 });
